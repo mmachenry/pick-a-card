@@ -9857,8 +9857,8 @@ var _mmachenry$pick_a_card$Main$advanceTime = F2(
 							return (_elm_lang$core$Native_Utils.cmp(now - _p7, _mmachenry$pick_a_card$Main$hoverDuration) > -1) ? _mmachenry$pick_a_card$Main$Cooldown(now) : ((_elm_lang$core$Native_Utils.cmp(now - _p6._1, _mmachenry$pick_a_card$Main$hoverSwapDuration) > -1) ? A3(
 								_mmachenry$pick_a_card$Main$Hovering,
 								_mmachenry$pick_a_card$Main$nextCard(_p6._0),
-								_p7,
-								now) : model.state);
+								now,
+								_p7) : model.state);
 						case 'CardLocked':
 							return (_elm_lang$core$Native_Utils.cmp(now - _p6._1, _mmachenry$pick_a_card$Main$cardLockDuration) > 0) ? _mmachenry$pick_a_card$Main$Cooldown(now) : model.state;
 						default:
