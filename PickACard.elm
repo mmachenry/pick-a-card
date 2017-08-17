@@ -90,7 +90,7 @@ advanceTime now model = { model | now = now, state = case model.state of
     if now - totalt >= hoverDuration
     then Cooldown now
     else if now - cardt >= hoverSwapDuration
-         then Hovering (nextCard card) totalt now
+         then Hovering (nextCard card) now totalt
          else model.state
   CardLocked _ lockedat ->
     if now - lockedat > cardLockDuration
