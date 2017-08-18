@@ -25,19 +25,19 @@ hoverDuration = 6 * Time.second
 cardLockDuration = 6 * Time.second
 hoverSwapDuration = 1/2 * Time.second
 
-type Card = Blue | Red | Gold
+type Card = Blue | Gold | Red
 
 -- Create a cyclic rotation of the card colors.
 nextCard c = case c of
-  Blue -> Red
-  Red -> Gold
-  Gold -> Blue
+  Blue -> Gold
+  Gold -> Red
+  Red -> Blue
 
 -- A mapping of integers to colors so that they can be randomized.
 cardMap i = case i of
   0 -> Blue
-  1 -> Red
-  _ -> Gold
+  1 -> Gold
+  _ -> Red
 
 type alias Model = {
   now : Time,
@@ -167,8 +167,8 @@ getDisplayColor state = case state of
 -- Stringify the color for use in the SVG output.
 cardColor card = case card of
   Blue -> "blue"
-  Red -> "red"
   Gold -> "yellow"
+  Red -> "red"
 
 ----------------
 -- Subscriptions
