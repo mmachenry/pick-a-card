@@ -9717,10 +9717,10 @@ var _mmachenry$pick_a_card$Main$cardColor = function (card) {
 	switch (_p0.ctor) {
 		case 'Blue':
 			return 'blue';
-		case 'Gold':
-			return 'yellow';
-		default:
+		case 'Red':
 			return 'red';
+		default:
+			return 'yellow';
 	}
 };
 var _mmachenry$pick_a_card$Main$getDisplayColor = function (state) {
@@ -9790,16 +9790,16 @@ var _mmachenry$pick_a_card$Main$Model = F3(
 	function (a, b, c) {
 		return {now: a, state: b, cdr: c};
 	});
-var _mmachenry$pick_a_card$Main$Red = {ctor: 'Red'};
 var _mmachenry$pick_a_card$Main$Gold = {ctor: 'Gold'};
+var _mmachenry$pick_a_card$Main$Red = {ctor: 'Red'};
 var _mmachenry$pick_a_card$Main$Blue = {ctor: 'Blue'};
 var _mmachenry$pick_a_card$Main$nextCard = function (c) {
 	var _p3 = c;
 	switch (_p3.ctor) {
 		case 'Blue':
-			return _mmachenry$pick_a_card$Main$Gold;
-		case 'Gold':
 			return _mmachenry$pick_a_card$Main$Red;
+		case 'Red':
+			return _mmachenry$pick_a_card$Main$Gold;
 		default:
 			return _mmachenry$pick_a_card$Main$Blue;
 	}
@@ -9810,9 +9810,9 @@ var _mmachenry$pick_a_card$Main$cardMap = function (i) {
 		case 0:
 			return _mmachenry$pick_a_card$Main$Blue;
 		case 1:
-			return _mmachenry$pick_a_card$Main$Gold;
-		default:
 			return _mmachenry$pick_a_card$Main$Red;
+		default:
+			return _mmachenry$pick_a_card$Main$Gold;
 	}
 };
 var _mmachenry$pick_a_card$Main$Cooldown = function (a) {
