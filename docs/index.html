@@ -9786,6 +9786,26 @@ var _mmachenry$pick_a_card$Main$hoverSwapDuration = (1 / 2) * _elm_lang$core$Tim
 var _mmachenry$pick_a_card$Main$cardLockDuration = 6 * _elm_lang$core$Time$second;
 var _mmachenry$pick_a_card$Main$hoverDuration = 6 * _elm_lang$core$Time$second;
 var _mmachenry$pick_a_card$Main$cooldown = 6 * _elm_lang$core$Time$second;
+var _mmachenry$pick_a_card$Main$modelToString = function (model) {
+	var _p3 = model.state;
+	switch (_p3.ctor) {
+		case 'Ready':
+			return 'Ready';
+		case 'Hovering':
+			return 'Hovering';
+		case 'CardLocked':
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				'CardLocked ',
+				_elm_lang$core$Basics$toString(_p3._0));
+		default:
+			var secondsLeft = _elm_lang$core$Basics$ceiling(((_mmachenry$pick_a_card$Main$cooldown - model.now) + _p3._0) / _elm_lang$core$Time$second);
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Cooldown ',
+				_elm_lang$core$Basics$toString(secondsLeft));
+	}
+};
 var _mmachenry$pick_a_card$Main$Model = F3(
 	function (a, b, c) {
 		return {now: a, state: b, cdr: c};
@@ -9794,8 +9814,8 @@ var _mmachenry$pick_a_card$Main$Gold = {ctor: 'Gold'};
 var _mmachenry$pick_a_card$Main$Red = {ctor: 'Red'};
 var _mmachenry$pick_a_card$Main$Blue = {ctor: 'Blue'};
 var _mmachenry$pick_a_card$Main$nextCard = function (c) {
-	var _p3 = c;
-	switch (_p3.ctor) {
+	var _p4 = c;
+	switch (_p4.ctor) {
 		case 'Blue':
 			return _mmachenry$pick_a_card$Main$Red;
 		case 'Red':
@@ -9805,8 +9825,8 @@ var _mmachenry$pick_a_card$Main$nextCard = function (c) {
 	}
 };
 var _mmachenry$pick_a_card$Main$cardMap = function (i) {
-	var _p4 = i;
-	switch (_p4) {
+	var _p5 = i;
+	switch (_p5) {
 		case 0:
 			return _mmachenry$pick_a_card$Main$Blue;
 		case 1:
@@ -9820,8 +9840,8 @@ var _mmachenry$pick_a_card$Main$Cooldown = function (a) {
 };
 var _mmachenry$pick_a_card$Main$clickMouse = F2(
 	function (now, state) {
-		var _p5 = state;
-		if (_p5.ctor === 'CardLocked') {
+		var _p6 = state;
+		if (_p6.ctor === 'CardLocked') {
 			return _mmachenry$pick_a_card$Main$Cooldown(now);
 		} else {
 			return state;
@@ -9848,21 +9868,21 @@ var _mmachenry$pick_a_card$Main$advanceTime = F2(
 			{
 				now: now,
 				state: function () {
-					var _p6 = model.state;
-					switch (_p6.ctor) {
+					var _p7 = model.state;
+					switch (_p7.ctor) {
 						case 'Ready':
 							return _mmachenry$pick_a_card$Main$Ready;
 						case 'Hovering':
-							var _p7 = _p6._2;
-							return (_elm_lang$core$Native_Utils.cmp(now - _p7, _mmachenry$pick_a_card$Main$hoverDuration) > -1) ? _mmachenry$pick_a_card$Main$Cooldown(now) : ((_elm_lang$core$Native_Utils.cmp(now - _p6._1, _mmachenry$pick_a_card$Main$hoverSwapDuration) > -1) ? A3(
+							var _p8 = _p7._2;
+							return (_elm_lang$core$Native_Utils.cmp(now - _p8, _mmachenry$pick_a_card$Main$hoverDuration) > -1) ? _mmachenry$pick_a_card$Main$Cooldown(now) : ((_elm_lang$core$Native_Utils.cmp(now - _p7._1, _mmachenry$pick_a_card$Main$hoverSwapDuration) > -1) ? A3(
 								_mmachenry$pick_a_card$Main$Hovering,
-								_mmachenry$pick_a_card$Main$nextCard(_p6._0),
+								_mmachenry$pick_a_card$Main$nextCard(_p7._0),
 								now,
-								_p7) : model.state);
+								_p8) : model.state);
 						case 'CardLocked':
-							return (_elm_lang$core$Native_Utils.cmp(now - _p6._1, _mmachenry$pick_a_card$Main$cardLockDuration) > 0) ? _mmachenry$pick_a_card$Main$Cooldown(now) : model.state;
+							return (_elm_lang$core$Native_Utils.cmp(now - _p7._1, _mmachenry$pick_a_card$Main$cardLockDuration) > 0) ? _mmachenry$pick_a_card$Main$Cooldown(now) : model.state;
 						default:
-							return (_elm_lang$core$Native_Utils.cmp(now - _p6._0, _mmachenry$pick_a_card$Main$cooldown * (1 - (model.cdr / 100))) > -1) ? _mmachenry$pick_a_card$Main$Ready : model.state;
+							return (_elm_lang$core$Native_Utils.cmp(now - _p7._0, _mmachenry$pick_a_card$Main$cooldown * (1 - (model.cdr / 100))) > -1) ? _mmachenry$pick_a_card$Main$Ready : model.state;
 					}
 				}()
 			});
@@ -9983,7 +10003,7 @@ var _mmachenry$pick_a_card$Main$view = function (model) {
 										A2(
 											_elm_lang$core$Basics_ops['++'],
 											'Current state: ',
-											_elm_lang$core$Basics$toString(model.state))),
+											_mmachenry$pick_a_card$Main$modelToString(model))),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -10015,8 +10035,8 @@ var _mmachenry$pick_a_card$Main$makeRandomColor = A2(
 		_mmachenry$pick_a_card$Main$cardMap,
 		A2(_elm_lang$core$Random$int, 0, 2)));
 var _mmachenry$pick_a_card$Main$pressW = function (model) {
-	var _p8 = model.state;
-	switch (_p8.ctor) {
+	var _p9 = model.state;
+	switch (_p9.ctor) {
 		case 'Ready':
 			return {ctor: '_Tuple2', _0: model, _1: _mmachenry$pick_a_card$Main$makeRandomColor};
 		case 'Hovering':
@@ -10025,7 +10045,7 @@ var _mmachenry$pick_a_card$Main$pressW = function (model) {
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						state: A2(_mmachenry$pick_a_card$Main$CardLocked, _p8._0, model.now)
+						state: A2(_mmachenry$pick_a_card$Main$CardLocked, _p9._0, model.now)
 					}),
 				_1: _elm_lang$core$Platform_Cmd$none
 			};
@@ -10035,17 +10055,17 @@ var _mmachenry$pick_a_card$Main$pressW = function (model) {
 };
 var _mmachenry$pick_a_card$Main$update = F2(
 	function (msg, model) {
-		var _p9 = msg;
-		switch (_p9.ctor) {
+		var _p10 = msg;
+		switch (_p10.ctor) {
 			case 'Tick':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_mmachenry$pick_a_card$Main$advanceTime, _p9._0, model),
+					_0: A2(_mmachenry$pick_a_card$Main$advanceTime, _p10._0, model),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'KeyMsg':
 				return _elm_lang$core$Native_Utils.eq(
-					_elm_lang$core$Char$fromCode(_p9._0),
+					_elm_lang$core$Char$fromCode(_p10._0),
 					_elm_lang$core$Native_Utils.chr('W')) ? _mmachenry$pick_a_card$Main$pressW(model) : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'RandomCard':
 				return {
@@ -10053,7 +10073,7 @@ var _mmachenry$pick_a_card$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							state: A3(_mmachenry$pick_a_card$Main$Hovering, _p9._0, model.now, model.now)
+							state: A3(_mmachenry$pick_a_card$Main$Hovering, _p10._0, model.now, model.now)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};

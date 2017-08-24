@@ -147,9 +147,18 @@ view model =
       Html.text (toString model.cdr),
       button [ onClick IncrementCdr ] [ Html.text "+" ]
     ],
-    div [] [ Html.text ("Current state: " ++ toString model.state) ],
+    div [] [ Html.text ("Current state: " ++ modelToString model) ],
     div [ onClick Attack ] ( drawCard model )
   ]
+
+-- A string description of the current state
+modelToString model = case model.state of
+  Ready -> "Ready"
+  Hovering card t1 t2 -> "Hovering"
+  CardLocked card t -> "CardLocked " ++ toString card
+  Cooldown t ->
+    let secondsLeft = ceiling ((cooldown - model.now + t) / Time.second)
+    in "Cooldown " ++ toString secondsLeft
 
 -- Draw an SVG image of a large box with the appropriate color for the state.
 drawCard model = case getDisplayColor model.state of
